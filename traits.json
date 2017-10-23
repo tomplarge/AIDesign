@@ -1,0 +1,65 @@
+{
+  "needs": [
+    "Challenge", 
+    "Closeness", 
+    "Curiosity", 
+    "Excitement", 
+    "Harmony", 
+    "Ideal", 
+    "Liberty", 
+    "Love", 
+    "Practicality", 
+    "Self-expression", 
+    "Stability", 
+    "Structure"
+  ], 
+  "values": [
+    "Conservation", 
+    "Openness to change", 
+    "Hedonism", 
+    "Self-enhancement", 
+    "Self-transcendence"
+  ], 
+  "personality": {
+    "Emotional range": [
+      "Fiery", 
+      "Prone to worry", 
+      "Melancholy", 
+      "Immoderation", 
+      "Self-consciousness", 
+      "Susceptible to stress"
+    ], 
+    "Openness": [
+      "Adventurousness", 
+      "Artistic interests", 
+      "Emotionality", 
+      "Imagination", 
+      "Intellect", 
+      "Authority-challenging"
+    ], 
+    "Extraversion": [
+      "Activity level", 
+      "Assertiveness", 
+      "Cheerfulness", 
+      "Excitement-seeking", 
+      "Outgoing", 
+      "Gregariousness"
+    ], 
+    "Agreeableness": [
+      "Altruism", 
+      "Cooperation", 
+      "Modesty", 
+      "Uncompromising", 
+      "Sympathy", 
+      "Trust"
+    ], 
+    "Conscientiousness": [
+      "Achievement striving", 
+      "Cautiousness", 
+      "Dutifulness", 
+      "Orderliness", 
+      "Self-discipline", 
+      "Self-efficacy"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+Having acquired KLN, South Africa’s second largest wealth management
+company, and VIVCO, owner of the award-winning Compass wealth
+management platform, National South Africa Bank (NSAB) decided to
+migrate all KLN accounts onto the Compass platform. Three months
+before the launch, trial migrations were failing, and a call went out for
+volunteers to form a deployment team. I volunteered - forming a team of
+four to manage the migration of 40,000 accounts, representing 70% of
+NSAB’s wealth management business worth $8.5 billion in assets. I
+created the plan detailing the migration activities that had to be
+performed.
+
+On the week of the migration, tensions were high: everyone was tired and
+I had to ensure that milestones were punctually met. I found myself
+instructing other teams on when to execute their activities. I was also
+managing dependencies, updating the control room, and dealing with
+setbacks. The week-long migration involved 1000+ activities, and had the
+CEO’s attention, as failure at this scale would have been very
+embarrassing for KLN. Therefore, when I found out that the accounts
+were migrated correctly, I breathed a sigh of relief and collapsed at
+someone’s desk – my toughest, most rewarding week at work was over.
+
+In my personal life, the hardest thing I ever did was, at the age of 18, call
+my parents in China from South Africa and tell them that their son had
+passed away in a car accident. My parents wanted to bury my brother in
+China so I convinced them that I would handle everything in South Africa
+and bring him to China. Nauseated, bewildered and angry about what had
+happened, I was unable to concentrate - nonetheless I visited the coroner
+to identify my brother, dealt with the road traffic authority and police,
+borrowed money, organized my visa and plane ticket, found a mortician,
+organized a ceremony in Cape Town, organized transportation for the
+body, and a week later flew to China. Arriving at 2 a.m. things got worse customs refused to let me and my brother out of the airport as I had not
+brought his passport. After much negotiation and getting a photocopy of
+the passport faxed, we were released on the condition that I surrender my
+passport which would be returned when my brother’s was presented.
+Exiting the airport, I saw my parents; exhausted, relieved and emotionally
+drained, I hugged them, knowing I had completed what I had to do.
