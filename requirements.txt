@@ -1,2 +1,3 @@
 watson-developer-cloud
 matplotlib
+flask
