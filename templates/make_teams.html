@@ -1,0 +1,405 @@
+<html>
+<head>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Team Up</title>
+  <style type="text/css" media="screen">
+  html, body {
+    margin: 0;
+    height: 100%;
+  }
+  .wrapper {
+    min-height: 100%;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    align-content: flex-start;
+  }
+  .wrapper > * {
+    flex: 1 100%;
+  }
+  .banner {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    list-style: none;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  .banner a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: black;
+  }
+  .banner a:hover {
+    background: skyblue;
+  }
+  .banner li a {
+    border: none;
+  }
+  .banner p {
+    left: 20px;
+    position: absolute;
+  }
+  /*.banner-content {
+    font-weight: bold;
+    font-size: 30;
+    color: #002868;
+    font-family: "Arial Rounded MT Bold";
+    text-align: left;
+  }*/
+  .content {
+    flex: 1;
+    border-right-width: thin;
+    border-right-color: black;
+    border-right-style: solid;
+    min-height: 100%;
+  }
+  .input-pane {
+
+  }
+  .input-form {
+    font-size: 20px;
+  }
+  .results {
+    flex: 2;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+  }
+  .team {
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-around;
+    -webkit-flex-flow: row;
+    align-items: center;
+  }
+  .teammates {
+    flex: 1;
+    line-height: 40px
+  }
+  .team-results {
+    background-color: pink;
+    flex: 2;
+  }
+  .teammate {
+    background-color: yellow;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .teammate:hover {
+    background-color: pink;
+  }
+  .data {
+    border: 1px solid black;
+    width: 100px;
+  }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  .bar {
+    fill: orange;
+  }
+  .solidArc:hover {
+    fill: orangered ;
+  }
+  /*.solidArc {
+      -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+  }*/
+  .x.axis path {
+    display: none;
+  }
+  .aster-score {
+    line-height: 1;
+    font-weight: bold;
+    font-size: 100%;
+  }
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+  /* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+  /* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <ul class="banner">
+        <p>Team Up</p>
+        <li><a href="/about">About</a></li>
+    </ul>
+    <div class="content">
+      <div class="input-pane">
+        1. Select Number of Teams<br>
+        2. Upload Files (Each file should be named with the name of the student. So Tom's would be tom.txt, etc.)<br>
+        3. Click Run<br><br>
+        <form class="input-form" action="/upload" method="post" enctype=multipart/form-data>
+          Select Folder of Essays:
+          <input type="file" name="file" multiple/>
+          <input type="submit" name="upload" value="Upload Files">
+        </form>
+        <script>
+        function onNumTeamsChange() {
+          var context = '{{context}}';
+          console.log(context);
+          var numTeams = document.getElementById('numteams').value;
+          var results = document.getElementsByClassName("results")[0];
+          // remove elements
+          while (results.firstChild) {
+              results.removeChild(results.firstChild);
+          }
+          // add numTeams elements
+          for (var i = 0; i < numTeams; i++) {
+            var teamDiv = document.createElement("div");
+            teamDiv.classList.add('team');
+            results.appendChild(teamDiv);
+          }
+        }
+        </script>
+        <script type="text/javascript">
+        $(function() {
+            $(".chzn-select").chosen();
+        });
+        </script>
+
+        <form class="input-form" action="/make_teams" method="post">
+          Class Name:
+          <input type="text" name="classname"><br><br>
+          Number of Teams:
+          <input type="number" name="numteams" id="numteams"><br><br>
+          Traits:
+          <select class="chzn-select" multiple="true" name="needs" style="width:200px;">
+            <optgroup label="Needs">
+              <option value="needs_challenge">Challenge</option>
+              <option value="needs_closeness">Closeness</option>
+              <option value="needs_curiosity">Curiosity</option>
+              <option value="needs_excitement">Excitement</option>
+              <option value="needs_harmony">Harmony</option>
+              <option value="needs_ideal">Ideal</option>
+              <option value="needs_liberty">Liberty</option>
+              <option value="needs_love">Love</option>
+              <option value="needs_practicality">Practicality</option>
+              <option value="needs_self-expression">Self-expression</option>
+              <option value="needs_stability">Stability</option>
+              <option value="needs_structure">Structure</option>
+            </optgroup>
+            <optgroup label="Values">
+              <option value="needs_challenge">Conservation</option>
+              <option value="needs_closeness">Openness to change</option>
+              <option value="needs_curiosity">Hedonism</option>
+              <option value="needs_excitement">Self-enhancement</option>
+              <option value="needs_harmony">Self-transcendence</option>
+            </optgroup>
+            <optgroup label="Emotional Range">
+              <option value="needs_challenge">Fiery</option>
+              <option value="needs_challenge">Prone to worry</option>
+              <option value="needs_challenge">Melancholy</option>
+              <option value="needs_challenge">Immoderation</option>
+              <option value="needs_challenge">Self-consciousness</option>
+              <option value="needs_challenge">Susceptible to stress</option>
+            </optgroup>
+            <optgroup label="Openness">
+              <option value="needs_challenge">Adventurousness</option>
+              <option value="needs_challenge">Artistic interests</option>
+              <option value="needs_challenge">Emotionality</option>
+              <option value="needs_challenge">Imagination</option>
+              <option value="needs_challenge">Intellect</option>
+              <option value="needs_challenge">Authority-challenging</option>
+            </optgroup>
+            <optgroup label="Extraversion">
+              <option value="needs_challenge">Activity level</option>
+              <option value="needs_challenge">Assertiveness</option>
+              <option value="needs_challenge">Cheerfulness</option>
+              <option value="needs_challenge">Excitement-seeking</option>
+              <option value="needs_challenge">Outgoing</option>
+              <option value="needs_challenge">Gregariousness</option>
+            </optgroup>
+            <optgroup label="Agreeableness">
+              <option value="needs_challenge">Altruism</option>
+              <option value="needs_challenge">Cooperation</option>
+              <option value="needs_challenge">Modesty</option>
+              <option value="needs_challenge">Uncompromising</option>
+              <option value="needs_challenge">Sympathy</option>
+              <option value="needs_challenge">Trust</option>
+            </optgroup>
+            <optgroup label="Conscientiousness">
+              <option value="needs_challenge">Achievement striving</option>
+              <option value="needs_challenge">Cautiousness</option>
+              <option value="needs_challenge">Dutifulness</option>
+              <option value="needs_challenge">Orderliness</option>
+              <option value="needs_challenge">Self-discipline</option>
+              <option value="needs_challenge">Self-efficacy</option>
+            </optgroup>
+          </select><br><br>
+          <input type="submit" name="run" value="Run">
+        </form>
+      </div>
+    </div>
+    <div class="results">
+      {% for team in context %}
+      <div class="team">
+        <div class="teammates">
+          {% for teammate in team %}
+          {{teammate['name']}}<br>
+          {% endfor %}
+        </div>
+        <div class="team-results">
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <script>
+    var width = 200,
+        height = 200,
+        radius = Math.min(width, height) / 2,
+        innerRadius = 0.3 * radius;
+
+    var pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) { return 1; });
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([0, 0])
+      .html(function(d) {
+        return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+      });
+
+    var arcBackground = d3.svg.arc()
+      .innerRadius(innerRadius)
+      .outerRadius(function (d) {
+        return (radius - innerRadius) * (100 / 100.0) + innerRadius;
+
+      });
+
+    var arc = d3.svg.arc()
+      .innerRadius(innerRadius)
+      .outerRadius(function (d) {
+        return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius;
+
+      });
+
+    var outlineArc = d3.svg.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(radius)
+
+    var svg = d3.selectAll("div.team").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    svg.call(tip);
+
+    d3.csv('static/team_test.csv', function(error, data) {
+
+      data.forEach(function(d) {
+        d.weight = 1;
+        d.score  = +d.score;
+        d.label  =  d.label;
+      });
+
+      var pathBackground = svg.selectAll(".solidArc")
+          .data(pie(data))
+        .enter().append("path")
+          .attr("fill", function(d) { return 'transparent'; })
+          .attr("d", arcBackground)
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
+
+      var path = svg.selectAll(".solidArc")
+          .data(pie(data))
+        .enter().append("path")
+          .attr("fill", function(d) { return d.data.color; })
+          .attr("class", "solidArc")
+          .attr("stroke", "gray")
+          .attr("d", arc)
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
+
+      var outerPath = svg.selectAll(".outlineArc")
+          .data(pie(data))
+        .enter().append("path")
+          .attr("fill", "none")
+          .attr("stroke", "gray")
+          .attr("class", "outlineArc")
+          .attr("d", outlineArc)
+
+      // calculate the weighted mean score
+      var score =
+        data.reduce(function(a, b) {
+          //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+          return a + (b.score * b.weight);
+        }, 0) /
+        data.reduce(function(a, b) {
+          return a + b.weight;
+        }, 0);
+
+      svg.append("svg:text")
+        .attr("class", "aster-score")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle") // text-align: right
+        .text(Math.round(score));
+
+    });
+    </script>
+</body>
+</html>
