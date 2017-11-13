@@ -1,0 +1,190 @@
+{
+  "facet_cautiousness": {
+    "color": "#1E54C9", 
+    "label": "Cautiousness"
+  }, 
+  "facet_self_efficacy": {
+    "color": "#1E54C9", 
+    "label": "Self-efficacy"
+  }, 
+  "need_liberty": {
+    "color": "#6F2DBD", 
+    "label": "Liberty"
+  }, 
+  "facet_adventurousness": {
+    "color": "#018E42", 
+    "label": "Adventurousness"
+  }, 
+  "need_challenge": {
+    "color": "#6F2DBD", 
+    "label": "Challenge"
+  }, 
+  "facet_cooperation": {
+    "color": "#E86806", 
+    "label": "Cooperation"
+  }, 
+  "facet_sympathy": {
+    "color": "#E86806", 
+    "label": "Sympathy"
+  }, 
+  "facet_self_discipline": {
+    "color": "#1E54C9", 
+    "label": "Self-discipline"
+  }, 
+  "need_harmony": {
+    "color": "#6F2DBD", 
+    "label": "Harmony"
+  }, 
+  "facet_morality": {
+    "color": "#E86806", 
+    "label": "Uncompromising"
+  }, 
+  "facet_liberalism": {
+    "color": "#018E42", 
+    "label": "Authority-challenging"
+  }, 
+  "facet_altruism": {
+    "color": "#E86806", 
+    "label": "Altruism"
+  }, 
+  "facet_friendliness": {
+    "color": "#F7D002", 
+    "label": "Outgoing"
+  }, 
+  "need_love": {
+    "color": "#6F2DBD", 
+    "label": "Love"
+  }, 
+  "facet_activity_level": {
+    "color": "#F7D002", 
+    "label": "Activity level"
+  }, 
+  "facet_anxiety": {
+    "color": "#F00699", 
+    "label": "Prone to worry"
+  }, 
+  "need_self_expression": {
+    "color": "#6F2DBD", 
+    "label": "Self-expression"
+  }, 
+  "facet_emotionality": {
+    "color": "#018E42", 
+    "label": "Emotionality"
+  }, 
+  "need_curiosity": {
+    "color": "#6F2DBD", 
+    "label": "Curiosity"
+  }, 
+  "facet_vulnerability": {
+    "color": "#F00699", 
+    "label": "Susceptible to stress"
+  }, 
+  "need_excitement": {
+    "color": "#6F2DBD", 
+    "label": "Excitement"
+  }, 
+  "facet_excitement_seeking": {
+    "color": "#F7D002", 
+    "label": "Excitement-seeking"
+  }, 
+  "facet_self_consciousness": {
+    "color": "#F00699", 
+    "label": "Self-consciousness"
+  }, 
+  "facet_cheerfulness": {
+    "color": "#F7D002", 
+    "label": "Cheerfulness"
+  }, 
+  "facet_depression": {
+    "color": "#F00699", 
+    "label": "Melancholy"
+  }, 
+  "value_hedonism": {
+    "color": "#BF1A2F", 
+    "label": "Hedonism"
+  }, 
+  "value_openness_to_change": {
+    "color": "#BF1A2F", 
+    "label": "Openness to change"
+  }, 
+  "facet_imagination": {
+    "color": "#018E42", 
+    "label": "Imagination"
+  }, 
+  "value_conservation": {
+    "color": "#BF1A2F", 
+    "label": "Conservation"
+  }, 
+  "need_ideal": {
+    "color": "#6F2DBD", 
+    "label": "Ideal"
+  }, 
+  "need_practicality": {
+    "color": "#6F2DBD", 
+    "label": "Practicality"
+  }, 
+  "facet_trust": {
+    "color": "#E86806", 
+    "label": "Trust"
+  }, 
+  "facet_anger": {
+    "color": "#F00699", 
+    "label": "Fiery"
+  }, 
+  "facet_gregariousness": {
+    "color": "#F7D002", 
+    "label": "Gregariousness"
+  }, 
+  "facet_artistic_interests": {
+    "color": "#018E42", 
+    "label": "Artistic interests"
+  }, 
+  "facet_assertiveness": {
+    "color": "#F7D002", 
+    "label": "Assertiveness"
+  }, 
+  "facet_intellect": {
+    "color": "#018E42", 
+    "label": "Intellect"
+  }, 
+  "facet_immoderation": {
+    "color": "#F00699", 
+    "label": "Immoderation"
+  }, 
+  "facet_orderliness": {
+    "color": "#1E54C9", 
+    "label": "Orderliness"
+  }, 
+  "need_stability": {
+    "color": "#6F2DBD", 
+    "label": "Stability"
+  }, 
+  "facet_modesty": {
+    "color": "#E86806", 
+    "label": "Modesty"
+  }, 
+  "value_self_enhancement": {
+    "color": "#BF1A2F", 
+    "label": "Self-enhancement"
+  }, 
+  "value_self_transcendence": {
+    "color": "#BF1A2F", 
+    "label": "Self-transcendence"
+  }, 
+  "facet_achievement_striving": {
+    "color": "#1E54C9", 
+    "label": "Achievement striving"
+  }, 
+  "facet_dutifulness": {
+    "color": "#1E54C9", 
+    "label": "Dutifulness"
+  }, 
+  "need_structure": {
+    "color": "#6F2DBD", 
+    "label": "Structure"
+  }, 
+  "need_closeness": {
+    "color": "#6F2DBD", 
+    "label": "Closeness"
+  }
+}

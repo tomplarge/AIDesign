@@ -32,12 +32,12 @@ var svg = d3.select("body").append("svg")
 
 svg.call(tip);
 
-d3.csv('./static/team_test.csv', function(error, data) {
+d3.json('./people.json', function(error, data) {
 
   data.forEach(function(d) {
     d.weight = 1;
-    d.score  = +d.score;
-    d.label  =  d.label;
+    d.score = +d.score;
+    d.label = d.label;
   });
 
   var path = svg.selectAll(".solidArc")

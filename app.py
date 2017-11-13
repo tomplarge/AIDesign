@@ -1,5 +1,6 @@
 import os, sys
 import flask
+import json, csv
 
 from flask import Flask, redirect, url_for, request
 from flask import render_template
@@ -8,30 +9,50 @@ from build_teams import *
 
 app = Flask(__name__)
 
-
 @app.route('/')
-def index():
-    return redirect(url_for('make_teams'))
-
-@app.route('/make_teams', methods = ['POST', 'GET'])
-def make_teams(context = None):
+def index(features = None, teams = None):
     # if we're running
     if request.method == 'POST':
         classname = str(request.form['classname'])
         num_teams = int(request.form['numteams'])
-        people = [{'name': 'Tom', 'feat_1':.15842, 'feat_2':.11582}, {'name': 'Sangrin','feat_1':.28832, 'feat_2':.22845}, {'name': 'Suman', 'feat_1':.35483, 'feat_2':.33574},
-                    {'name': 'Jennifer','feat_1':.42372, 'feat_2':.44683}, {'name': 'Matt','feat_1':.55693, 'feat_2':.55293}, {'name': 'Mike','feat_1':.65632, 'feat_2':.66492},
-                    {'name': 'Stephanie','feat_1':.73154, 'feat_2':.77482}, {'name': 'Abdul','feat_1':.84038, 'feat_2':.88102}, {'name': 'Lindsay','feat_1':.91327, 'feat_2':.99230}]
-        features = ['feat_1', 'feat_2']
-        context = build_teams(num_teams, people, features)
-        return render_template('make_teams.html', context=context)
+
+        people = json.load(open('static/people.json'))
+        # features = json.load(open('static/traits.json'))
+
+        input_feats = request.form.getlist('features')
+        for i in range(len(input_feats)):
+            input_feats[i] = str(input_feats[i])
+
+        # # just testing
+        # teams = []
+        # teams.append(people[0:2])
+        # teams.append(people[2:4])
+        # teams.append(people[4:6])
+        teams = build_teams(num_teams, people, input_feats)
+        return render_template('index.html', teams = teams, features = input_feats)
     elif request.method == 'GET':
-        return render_template('make_teams.html')
+        print 'args: ', request.args
+        classname = ""
+        num_teams = 1
+        people = json.load(open('static/people.json'))
+        input_feats = []
+
+        if 'classname' in request.args:
+            classname = str(request.args['classname'])
+        if 'numteams' in request.args:
+            num_teams = int(request.args['numteams'])
+        if 'features' in request.args:
+            input_feats = request.args.getlist('features')
+        for i in range(len(input_feats)):
+            input_feats[i] = str(input_feats[i])
+        teams = build_teams(num_teams, people, input_feats)
+
+        return render_template('index.html', teams = teams, features = input_feats)
 
 @app.route('/about')
 def about():
     print 'about'
-    return render_template('make_teams.html')
+    return render_template('index.html')
 
 @app.route('/upload', methods = ['POST'])
 def upload():

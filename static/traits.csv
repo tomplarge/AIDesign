@@ -1,0 +1,48 @@
+category,label,id
+Needs,Challenge,need_challenge
+Needs,Closeness,need_closeness
+Needs,Curiosity,need_curiosity
+Needs,Excitement,need_excitement
+Needs,Harmony,need_harmony
+Needs,Ideal,need_ideal
+Needs,Liberty,need_liberty
+Needs,Love,need_love
+Needs,Practicality,need_practicality
+Needs,Self-expression,need_self_expression
+Needs,Stability,need_stability
+Needs,Structure,need_structure
+Values,Conservation,value_conservation
+Values,Openness to change,value_openness_to_change
+Values,Hedonism,value_hedonism
+Values,Self-enhancement,value_self_enhancement
+Values,Self-transcendence,value_self_transcendence
+Emotional range,Fiery,facet_anger
+Emotional range,Prone to worry,facet_anxiety
+Emotional range,Melancholy,facet_depression
+Emotional range,Immoderation,facet_immoderation
+Emotional range,Self-consciousness,facet_self_consciousness
+Emotional range,Susceptible to stress,facet_vulnerability
+Openness,Adventurousness,facet_adventurousness
+Openness,Artistic interests,facet_artistic_interests
+Openness,Emotionality,facet_emotionality
+Openness,Imagination,facet_imagination
+Openness,Intellect,facet_intellect
+Openness,Authority-challenging,facet_liberalism
+Extraversion,Activity level,facet_activity_level
+Extraversion,Assertiveness,facet_assertiveness
+Extraversion,Cheerfulness,facet_cheerfulness
+Extraversion,Excitement-seeking,facet_excitement_seeking
+Extraversion,Outgoing,facet_friendliness
+Extraversion,Gregariousness,facet_gregariousness
+Agreeableness,Altruism,facet_altruism
+Agreeableness,Cooperation,facet_cooperation
+Agreeableness,Modesty,facet_modesty
+Agreeableness,Uncompromising,facet_morality
+Agreeableness,Sympathy,facet_sympathy
+Agreeableness,Trust,facet_trust
+Conscientiousness,Achievement striving,facet_achievement_striving
+Conscientiousness,Cautiousness,facet_cautiousness
+Conscientiousness,Dutifulness,facet_dutifulness
+Conscientiousness,Orderliness,facet_orderliness
+Conscientiousness,Self-discipline,facet_self_discipline
+Conscientiousness,Self-efficacy,facet_self_efficacy
