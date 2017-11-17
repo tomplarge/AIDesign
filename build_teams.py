@@ -52,6 +52,8 @@ def calc_var(team, features):
 
         var += np.var(vals)
 
+    var /= len(team)
+
     return var
 
 

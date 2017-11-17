@@ -32,6 +32,7 @@
     border-bottom-color: black;
     border-bottom-style: solid;
     border-bottom-width: thin;
+    height: 50px;
     list-style: none;
     margin: 0;
     display: -webkit-box;
@@ -74,13 +75,22 @@
     min-height: 100%;
   }
   .input-pane {
-
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    align-items: center;
   }
   .input-form {
     font-size: 20px;
+    margin: 10px;
   }
   .input-numteams {
     text-align: center;
+  }
+  .run-teams {
+    align-self: center;
   }
   .results {
     flex: 2;
@@ -100,11 +110,8 @@
     border-style: solid;
     padding: 10px;
     margin: 10px;
-    min-width: 300px;
     display: flex;
-    justify-content: space-around;
     -webkit-flex-flow: row;
-    align-items: center;
   }
   .teammates {
     flex: 1;
@@ -116,8 +123,11 @@
     display: flex;
 
     -webkit-flex-flow: column wrap;
-    justify-content: space-around;
-    max-height: 200px;
+    justify-content: flex-start;
+    align-content: flex-start;
+    max-height: 300px;
+    position: relative;
+    left: 0px;
   }
   .team-results {
     background-color: pink;
@@ -134,7 +144,46 @@
   .teammate:hover {
     background-color: pink;
   }
-  .data {
+  .figure {
+    flex: 1;
+  }
+  .key-container{
+    margin: 5px;
+    flex: 1;
+    max-width: 150px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    padding: 10px;
+    margin: auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+  }
+  .key-element {
+    flex: 1;
+    width: 120px;
+    font-size: 15px;
+    padding-left: 20px;
+    padding-right: 10px;
+    position: relative;
+  }
+  .color-circle {
+    flex: 1;
+    height: 14px;
+    width: 14px;
+    border-radius: 7px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+  }
+  /*.data {
     border: 1px solid black;
     width: 100px;
   }
@@ -149,14 +198,14 @@
   }
   .solidArc:hover {
     fill: orangered ;
-  }
+  }*/
   /*.solidArc {
       -moz-transition: all 0.3s;
       -o-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s;
   }*/
-  .x.axis path {
+  /*.x.axis path {
     display: none;
   }
   .aster-score {
@@ -171,9 +220,9 @@
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-radius: 2px;
-  }
+  }*/
   /* Creates a small triangle extender for the tooltip */
-  .d3-tip:after {
+  /*.d3-tip:after {
     box-sizing: border-box;
     display: inline;
     font-size: 10px;
@@ -183,13 +232,59 @@
     content: "\25BC";
     position: absolute;
     text-align: center;
-  }
+  }*/
   /* Style northward tooltips differently */
-  .d3-tip.n:after {
+  /*.d3-tip.n:after {
     margin: -1px 0 0 0;
     top: 100%;
     left: 0;
-  }
+  }*/
+
+   svg {
+       width: 550px;
+       height: 300px;
+       position: center;
+   }
+
+   .toolTip {
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       position: absolute;
+       display: none;
+       width: auto;
+       height: auto;
+       background: none repeat scroll 0 0 white;
+       border: 0 none;
+       border-radius: 8px 8px 8px 8px;
+       box-shadow: -3px 3px 15px #888888;
+       color: black;
+       font: 12px sans-serif;
+       padding: 5px;
+       text-align: center;
+   }
+
+   text {
+    font: 10px sans-serif;
+    color: white;
+   }
+
+   text.value {
+    font-weight: bold;
+    fill: black;
+   }
+
+   .axisHorizontal path{
+       fill: none;
+   }
+
+   .axisHorizontal .tick line {
+       stroke-width: 1;
+       stroke: rgba(0, 0, 0, 0.2);
+   }
+
+   .bar {
+       fill: steelblue;
+       /*fill-opacity: .9;*/
+   }
   </style>
 </head>
 
@@ -197,28 +292,9 @@
   <div class="wrapper">
     <ul class="banner">
         <p>Team Up</p>
-        <li><a href="/about">About</a></li>
     </ul>
     <div class="content">
       <div class="input-pane">
-        <!-- <script>
-        function onNumTeamsChange() {
-          var context = '{{context}}';
-          console.log(context);
-          var numTeams = document.getElementById('numteams').value;
-          var results = document.getElementsByClassName("results")[0];
-          // remove elements
-          while (results.firstChild) {
-              results.removeChild(results.firstChild);
-          }
-          // add numTeams elements
-          for (var i = 0; i < numTeams; i++) {
-            var teamDiv = document.createElement("div");
-            teamDiv.classList.add('team');
-            results.appendChild(teamDiv);
-          }
-        }
-        </script> -->
         <script type="text/javascript">
         $(function() {
             $(".chzn-select").chosen();
@@ -239,7 +315,7 @@
 
         <form class="input-form" action="/" method="get">
           Class Name:
-          <input type="text" name="classname"><br><br>
+          <input type="text" name="classname" placeholder="Class Name"><br><br>
           Number of Teams:
           <input class = "input-numteams" type="number" name="numteams" id="numteams" min="1"><br><br>
           Traits:
@@ -306,8 +382,17 @@
               <option value="facet_self_efficacy">Self-efficacy</option>
             </optgroup>
           </select><br><br>
-          <input type="submit" name="run" value="Run">
+          <input class="run-teams" type="submit" name="run" value="Run">
         </form>
+        <!-- <div class="key-container">
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#6F2DBD"></div>Needs</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#BF1A2F"></div>Values</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#F00699"></div>Emotional Range</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#018E42"></div>Openness</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#F7D002"></div>Extraversion</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#E86806"></div>Agreeableness</div>
+          <div class="key-element" id={{feature}}><div class="color-circle" style="background-color:#1E54C9"></div>Conscientiousness</div>
+        </div> -->
       </div>
     </div>
     <div class="results">
@@ -318,6 +403,8 @@
           {% for teammate in team %}
             <div class="teammate" id="{{outer_loop.index0}}-{{loop.index0}}"=>{{teammate['name']}}</div>
           {% endfor %}
+        </div>
+        <div class="figure">
         </div>
       </div>
       {% endfor %}
@@ -336,6 +423,15 @@
     //     });
     //     return json;
     // })();
+    var color_to_category = {
+      "#1E54C9": "Conscientiousness",
+      "#6F2DBD": "Needs",
+      "#F00699": "Emotional Range",
+      "#018E42": "Openness",
+      "#F7D002": "Extraversion",
+      "#BF1A2F": "Values",
+      "#E86806": "Agreeableness"
+    }
     var traits_json = {
       "facet_cautiousness": {
         "color": "#1E54C9",
@@ -529,47 +625,183 @@
     var teams = {{teams|tojson}}
     var features = {{features|safe}}
     teams.forEach(function(team, team_idx) {
-      var width = 200,
-          height = 200,
-          radius = Math.min(width, height) / 2,
-          innerRadius = 0 * radius;
-
-      var pie = d3.layout.pie()
-          .sort(null)
-          .value(function(d) { return 1; });
-
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([0, 0])
-        .html(function(d) {
-          return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
-        });
-
-      var arcBackground = d3.svg.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(function (d) {
-          return (radius - innerRadius) * (100 / 100.0) + innerRadius;
-
-        });
-
-      var arc = d3.svg.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(function (d) {
-          return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius;
-
-        });
-
-      var outlineArc = d3.svg.arc()
-              .innerRadius(innerRadius)
-              .outerRadius(radius)
-
-      var svg = d3.selectAll("div.team#team"+team_idx).append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .append("g")
-          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-      svg.call(tip);
+    //   var width = 300,
+    //       height = 300,
+    //       radius = Math.min(width, height) / 2,
+    //       innerRadius = 0 * radius;
+    //
+    //   var pie = d3.layout.pie()
+    //       .sort(null)
+    //       .value(function(d) { return 1; });
+    //
+    //   var tip = d3.tip()
+    //     .attr('class', 'd3-tip')
+    //     .offset([0, 0])
+    //     .html(function(d) {
+    //       return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+    //     });
+    //
+    //   var arcBackground = d3.svg.arc()
+    //     .innerRadius(innerRadius)
+    //     .outerRadius(function (d) {
+    //       return (radius - innerRadius) * (100 / 100.0) + innerRadius;
+    //
+    //     });
+    //
+    //   var arc = d3.svg.arc()
+    //     .innerRadius(innerRadius)
+    //     .outerRadius(function (d) {
+    //       return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius;
+    //
+    //     });
+    //
+    //   var outlineArc = d3.svg.arc()
+    //           .innerRadius(innerRadius)
+    //           .outerRadius(radius)
+    //
+    //   var svg = d3.selectAll("div.team#team"+team_idx).selectAll(".figure").insert("svg",":first-child")
+    //       .attr("width", width)
+    //       .attr("height", height)
+    //       .style("padding", "20px")
+    //       .append("g")
+    //       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+    //
+    //   svg.call(tip);
+    //
+    //   var data = [];
+    //
+    //   for (var feat_idx = 0; feat_idx < features.length; feat_idx++) {
+    //     var d = {}
+    //     var feat = features[feat_idx];
+    //     d.label = traits_json[feat].label;
+    //     d.color = traits_json[feat].color;
+    //     d.feat = feat;
+    //     d.weight = 1;
+    //     d.score = 0;
+    //     for (var p_idx = 0; p_idx < team.length; p_idx++) {
+    //       var p = team[p_idx];
+    //       // set value of arc to max value in team
+    //       if (p[feat] > d.score)
+    //         d.score = p[feat];
+    //     }
+    //
+    //     d.score = Math.round(d.score * 100);
+    //     data.push(d);
+    //   }
+    //
+    //   var p_data = [];
+    //   for (var p_idx = 0; p_idx < team.length; p_idx++) {
+    //     var temp_data = [];
+    //     for (var feat_idx = 0; feat_idx < features.length; feat_idx++) {
+    //       var d = {}
+    //       var feat = features[feat_idx];
+    //       d.label = traits_json[feat].label;
+    //       d.color = traits_json[feat].color;
+    //       d.feat = feat;
+    //       d.weight = 1;
+    //       d.score = team[p_idx][feat];
+    //       d.score = Math.round(d.score * 100);
+    //       temp_data.push(d);
+    //     }
+    //     p_data.push(temp_data);
+    //   }
+    //
+    //   var path = svg.selectAll(".solidArc")
+    //       .data(pie(data))
+    //     .enter().append("path")
+    //       .attr("fill", function(d) {return d.data.color; })
+    //       .attr("class", "solidArc")
+    //       .attr("stroke", "gray")
+    //       .attr("d", arc)
+    //
+    //   for (var p_idx = 0; p_idx < p_data.length; p_idx++) {
+    //     var path = svg.selectAll(".outlineArc"+p_idx)
+    //         .data(pie(p_data[p_idx]))
+    //       .enter().append("path")
+    //         .attr("fill", 'transparent')
+    //         .attr("class", "outlineArc"+p_idx)
+    //         .attr("id", team_idx+"-"+p_idx)
+    //         .attr("stroke", "transparent")
+    //         .attr("stroke-width", 2)
+    //         .attr("d", arc)
+    //
+    //     $("#"+team_idx+"-"+p_idx).mouseover(function(e){
+    //       var split = this.id.split("-");
+    //       var team_idx = split[0];
+    //       var p_idx = split[1];
+    //       $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'white', 'fill':"rgba(0,0,0,0.5)"})
+    //     });
+    //     $("#"+team_idx+"-"+p_idx).mouseout(function(e){
+    //       var split = this.id.split("-");
+    //       var team_idx = split[0];
+    //       var p_idx = split[1];
+    //       $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'transparent', 'fill':'transparent'})
+    //     });
+    //   }
+    //
+    //   var outerPath = svg.selectAll(".outlineArc")
+    //       .data(pie(data))
+    //     .enter().append("path")
+    //       .attr("fill", "none")
+    //       .attr("stroke", "gray")
+    //       .attr("class", "outlineArc")
+    //       .attr("d", outlineArc)
+    //
+    //   var pathBackground = svg.selectAll(".arcBackground")
+    //       .data(pie(data))
+    //     .enter().append("path")
+    //       .attr("fill", 'transparent')
+    //       .attr("d", arcBackground)
+    //       .attr("id", function(d) { return "arcBackground-"+d.data.feat; })
+    //       .on('mouseover', tip.show)
+    //       .on('mouseout', tip.hide);
+    //
+    //   var featText = svg.selectAll(".featText")
+    //       .data(pie(data))
+    //     .enter().append("text")
+    //       .attr("class", "featText")
+    //       .attr("dy", "8px")
+    //     .append("textPath") //append a textPath to the text element
+    //       .attr("xlink:href", function(d) { return "#arcBackground-"+d.data.feat; }) //place the ID of the path here
+    //       .style("text-anchor","middle") //place the text halfway on the arc
+    //       .attr("startOffset", function() { return "34%" })
+    //       .text(function(d) { return "---------" })
+    //       .style("font-size", "14px")
+    //       .style("font-weight", "bold")
+    //       .style("fill", "black")
+    //       .on('mouseover', tip.show)
+    //       .on('mouseout', tip.hide);
+    //
+    //   var scoreText = svg.selectAll(".scoreText")
+    //       .data(pie(data))
+    //     .enter().append("text")
+    //       .attr("class", "scoreText")
+    //       .attr("dy", "-3px")
+    //     .append("textPath") //append a textPath to the text element
+    //       .attr("xlink:href", function(d) { return "#arcBackground-"+d.data.feat; }) //place the ID of the path here
+    //       .style("text-anchor","middle") //place the text halfway on the arc
+    //       .attr("startOffset", "8%")
+    //       .text(function(d) { return d.data.score })
+    //       .style("font-size", "15px")
+    //       .style("font-weight", "bold")
+    //       .style("fill", "black")
+    //
+    //   // calculate the weighted mean score
+    //   // var score =
+    //   //   data.reduce(function(a, b) {
+    //   //     //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+    //   //     return a + (b.score * b.weight);
+    //   //   }, 0) /
+    //   //   data.reduce(function(a, b) {
+    //   //     return a + b.weight;
+    //   //   }, 0);
+    //
+    //   // svg.append("svg:text")
+    //   //   .attr("class", "aster-score")
+    //   //   .attr("dy", ".35em")
+    //   //   .attr("text-anchor", "middle") // text-align: right
+    //   //   .text(Math.round(score));
+    //   }
 
       var data = [];
 
@@ -580,15 +812,15 @@
         d.color = traits_json[feat].color;
         d.feat = feat;
         d.weight = 1;
-        d.score = 0;
+        d.value = 0;
         for (var p_idx = 0; p_idx < team.length; p_idx++) {
           var p = team[p_idx];
           // set value of arc to max value in team
-          if (p[feat] > d.score)
-            d.score = p[feat];
+          if (p[feat] > d.value)
+            d.value = p[feat];
         }
 
-        d.score = Math.round(d.score * 100);
+        d.value = Math.round(d.value * 100);
         data.push(d);
       }
 
@@ -602,84 +834,167 @@
           d.color = traits_json[feat].color;
           d.feat = feat;
           d.weight = 1;
-          d.score = team[p_idx][feat];
-          d.score = Math.round(d.score * 100);
+          d.value = team[p_idx][feat];
+          d.value = Math.round(d.value * 100);
           temp_data.push(d);
         }
         p_data.push(temp_data);
       }
 
-      var path = svg.selectAll(".solidArc")
-          .data(pie(data))
-        .enter().append("path")
-          .attr("fill", function(d) {return d.data.color; })
-          .attr("class", "solidArc")
-          .attr("stroke", "gray")
-          .attr("d", arc)
+      var div = d3.select("body").append("div").attr("class", "toolTip");
+
+      var axisMargin = 20,
+          margin = 10,
+          valueMargin = 4,
+          width = 400,
+          height = 300,
+          barHeight = (height-axisMargin-margin*2)* 0.4/data.length,
+          barPadding = (height-axisMargin-margin*2)*0.6/data.length,
+          data, bar, svg, scale, xAxis, labelWidth = 0;
+
+      max = 100;
+
+      svg = d3.selectAll("div.team#team"+team_idx).selectAll(".figure")
+       .append("svg")
+       .attr("width", width)
+       .attr("height", height);
+
+
+      bar = svg.selectAll("g")
+        .data(data)
+        .enter()
+        .append("g");
+
+      bar.attr("class", "bar")
+        .attr("id", function(d) { return d.feat+"-"+team_idx })
+        .attr("cx",0)
+        .attr("transform", function(d, i) {
+            return "translate(" + margin + "," + (i * (barHeight + barPadding) + barPadding) + ")";
+        });
+
+      bar.append("text")
+        .attr("class", "label")
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em") //vertical align middle
+        .attr("dx", -5)
+        .attr("fill", function(d) { return d.color })
+        .text(function(d){
+            return d.label;
+        }).each(function() {
+            labelWidth = Math.ceil(Math.max(labelWidth, this.getBBox().width));
+          });
+
+      var categories_used = [];
+      bar.append("text")
+        .attr("class", "category")
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em") //vertical align middle
+        .attr("dx", 430)
+        .style("font-weight", "bold")
+        .attr("fill", function(d) { return d.color })
+        .text(function(d){
+            var category = color_to_category[d.color];
+            if (categories_used.indexOf(category) == -1) {
+              categories_used.push(category)
+              return category;
+            }
+            else {
+              return "";
+            }
+        }).each(function() {
+            labelWidth = Math.ceil(Math.max(labelWidth, this.getBBox().width));
+          });
+
+      scale = d3.scale.linear()
+        .domain([0, max])
+        .range([0, width - margin*2 - labelWidth]);
+
+      xAxis = d3.svg.axis()
+        .scale(scale)
+        .tickSize(-height + 2*margin + axisMargin)
+        .orient("bottom");
 
       for (var p_idx = 0; p_idx < p_data.length; p_idx++) {
-        var path = svg.selectAll(".outlineArc"+p_idx)
-            .data(pie(p_data[p_idx]))
-          .enter().append("path")
-            .attr("fill", 'transparent')
-            .attr("class", "outlineArc"+p_idx)
-            .attr("id", team_idx+"-"+p_idx)
-            .attr("stroke", "transparent")
-            .attr("stroke-width", 2)
-            .attr("d", arc)
+        var p = p_data[p_idx];
+        console.log(p_idx);
+        for (var i = 0; i < p.length; i++) {
+          var feat = p[i].feat;
+          var value = p[i].value;
+          d3.selectAll("#"+feat+"-"+team_idx)
+            .append("rect")
+            .attr("id", feat+"-"+team_idx+"-"+p_idx)
+            .attr("transform", "translate("+labelWidth+", 0)")
+            .attr("fill", "transparent")
+            .attr("height", barHeight)
+            .attr("width", function(d){
+                 return scale(value);
+          });
+        }
 
         $("#"+team_idx+"-"+p_idx).mouseover(function(e){
-          var split = this.id.split("-");
-          var team_idx = split[0];
-          var p_idx = split[1];
-          $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'white', 'fill':"rgba(0,0,0,0.5)"})
-        });
+            var split = this.id.split("-");
+            var team_idx = split[0];
+            var p_idx = split[1];
+            for (var f_idx = 0; f_idx < features.length; f_idx++) {
+              var feat = features[f_idx];
+              $("#"+feat+"-"+team_idx+"-"+p_idx).attr({'stroke':'white', 'fill':"black"})
+            }
+          });
+
         $("#"+team_idx+"-"+p_idx).mouseout(function(e){
-          var split = this.id.split("-");
-          var team_idx = split[0];
-          var p_idx = split[1];
-          $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'transparent', 'fill':'transparent'})
+            var split = this.id.split("-");
+            var team_idx = split[0];
+            var p_idx = split[1];
+            for (var f_idx = 0; f_idx < features.length; f_idx++) {
+              var feat = features[f_idx];
+              $("#"+feat+"-"+team_idx+"-"+p_idx).attr({'stroke':'transparent', 'fill':'transparent'})
+            }
         });
-        // $("#"+team_idx+"-"+p_idx).click(function(e){
-        //   var split = this.id.split("-");
-        //   var team_idx = split[0];
-        //   var p_idx = split[1];
-        //   $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke','#7FEFBD', 'fill':'#7FEFBD'})
-        // });
       }
 
-      var outerPath = svg.selectAll(".outlineArc")
-          .data(pie(data))
-        .enter().append("path")
-          .attr("fill", "none")
-          .attr("stroke", "gray")
-          .attr("class", "outlineArc")
-          .attr("d", outlineArc)
+      bar.insert("rect",":first-child")
+        .attr("transform", "translate("+labelWidth+", 0)")
+        .attr("fill", function(d) { return d.color })
+        .attr("height", barHeight)
+        .attr("width", function(d){
+             return scale(d.value);
+      });
 
-      var pathBackground = svg.selectAll(".arcBackground")
-          .data(pie(data))
-        .enter().append("path")
-          .attr("fill", 'transparent')
-          .attr("d", arcBackground)
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide);
-      // calculate the weighted mean score
-      // var score =
-      //   data.reduce(function(a, b) {
-      //     //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-      //     return a + (b.score * b.weight);
-      //   }, 0) /
-      //   data.reduce(function(a, b) {
-      //     return a + b.weight;
-      //   }, 0);
+      bar.append("text")
+        .attr("class", "value")
+        .attr("y", barHeight / 2)
+        .attr("dx", -valueMargin + labelWidth + 25) //margin right
+        .attr("dy", ".35em") //vertical align middle
+        .attr("text-anchor", "end")
+        .text(function(d){
+           return (d.value);
+        })
+        .attr("x", function(d){
+           var width = this.getBBox().width;
+           return Math.max(width + valueMargin, scale(d.value));
+        });
 
-      // svg.append("svg:text")
-      //   .attr("class", "aster-score")
-      //   .attr("dy", ".35em")
-      //   .attr("text-anchor", "middle") // text-align: right
-      //   .text(Math.round(score));
-      }
-    );
+      bar.on("mousemove", function(d){
+           div.style("left", d3.event.pageX+10+"px");
+           div.style("top", d3.event.pageY-25+"px");
+           div.style("display", "inline-block");
+           div.html((d.label)+"<br>"+(d.value));
+      });
+
+      bar.on("mouseout", function(d){
+           div.style("display", "none");
+      });
+
+      svg.insert("g",":first-child")
+        .attr("class", "axisHorizontal")
+        .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
+        .call(xAxis);
+      });
+    </script>
+    <script>
+    $(document).ready(function() {
+      $('.chosen-container').css("width", "400px");
+    })
     </script>
 </body>
 </html>
