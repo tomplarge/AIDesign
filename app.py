@@ -5,7 +5,9 @@ import json, csv
 from flask import Flask, redirect, url_for, request
 from flask import render_template
 
-from build_teams import *
+from build_teams import build_teams
+# from build_teams_with_gender import *
+from build_teams_with_random import *
 
 app = Flask(__name__)
 
@@ -42,10 +44,15 @@ def index(features = None, teams = None):
         num_teams = int(request.args['numteams'])
     if 'features' in request.args:
         input_feats = request.args.getlist('features')
+    if 'run' in request.args:
+        algo_type = str(request.args['run'])
     for i in range(len(input_feats)):
         input_feats[i] = str(input_feats[i])
     if input_feats:
-        teams = build_teams(num_teams, people, input_feats)
+        if algo_type == 'Random':
+            teams = build_random_teams(num_teams, people, input_feats)
+        elif algo_type == 'Run':
+            teams = build_teams(num_teams, people, input_feats)
     else:
         teams = []
     return render_template('index.html', teams = teams, features = input_feats)
