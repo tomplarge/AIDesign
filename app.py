@@ -5,8 +5,8 @@ import json, csv
 from flask import Flask, redirect, url_for, request
 from flask import render_template
 
-from build_teams import build_teams
-# from build_teams_with_gender import *
+# from build_teams import build_teams
+from build_teams_with_gender import *
 from build_teams_with_random import *
 
 app = Flask(__name__)
@@ -37,6 +37,7 @@ def index(features = None, teams = None):
     num_teams = 1
     people = json.load(open('static/people.json'))
     input_feats = []
+    algo_type = None
 
     if 'classname' in request.args:
         classname = str(request.args['classname'])
@@ -48,7 +49,7 @@ def index(features = None, teams = None):
         algo_type = str(request.args['run'])
     for i in range(len(input_feats)):
         input_feats[i] = str(input_feats[i])
-    if input_feats:
+    if input_feats and algo_type:
         if algo_type == 'Random':
             teams = build_random_teams(num_teams, people, input_feats)
         elif algo_type == 'Run':
@@ -58,4 +59,4 @@ def index(features = None, teams = None):
     return render_template('index.html', teams = teams, features = input_feats)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')

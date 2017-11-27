@@ -23,17 +23,17 @@ def build_teams(num_teams, people, features):
     # otherwise, assign all male to their teams first
     if len(female) <= len(male):
         init_teams(teams, female, num_teams)
-        round_robin(teams, female, team_choices, features, False)
-        round_robin(teams, male, team_choices[::-1], features, True)
+        round_robin(teams, female, num_teams, team_choices, features, False)
+        round_robin(teams, male, num_teams, team_choices[::-1], features, True)
     else:
         init_teams(teams, male, num_teams)
-        round_robin(teams, male, team_choices, features, False)
-        round_robin(teams, female, team_choices[::-1], features, True)
+        round_robin(teams, male, num_teams, team_choices, features, False)
+        round_robin(teams, female, num_teams, team_choices[::-1], features, True)
 
     return teams
 
 # Assign individuals based on round robin
-def round_robin(teams, people, team_choices, features, reversed):
+def round_robin(teams, people, num_teams, team_choices, features, reversed):
     # reversed : this is to balance the number of each teams in case the number of group is not divided by the team_num
     while len(people) > 0:
         max_var = 0
@@ -104,7 +104,7 @@ if __name__ == '__main__':
             {'feat_1':.91327, 'feat_2':.99230, 'feat_3':.94323, 'gender':'m'}]
     features = ['feat_1', 'feat_2', 'feat_3']
     num_teams = 3
-    
+
 
     team = build_teams(num_teams, people, features)
     show_team(team)

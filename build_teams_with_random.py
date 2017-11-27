@@ -6,6 +6,7 @@ def build_random_teams(num_teams, people, features):
     male = []
     female = []
     team_choices = range(num_teams)
+    i = 0
 
     # create empty list of each team
     l = len(people)
@@ -14,8 +15,13 @@ def build_random_teams(num_teams, people, features):
 
     # determine person that maximizes variance
     while people != []:
-        init_teams(teams, people, num_teams)
-
+        np.random.shuffle(people)
+        p = people.pop()
+        teams[i].append(p)
+        i += 1
+        if i == len(teams):
+            i = 0
+            
     return teams
 
 # Assign individuals based on round robin
@@ -90,7 +96,7 @@ if __name__ == '__main__':
             {'feat_1':.91327, 'feat_2':.99230, 'feat_3':.94323, 'gender':'m'}]
     features = ['feat_1', 'feat_2', 'feat_3']
     num_teams = 3
-    
+
 
     team = build_random_teams(num_teams, people, features)
     show_team(team)

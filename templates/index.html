@@ -8,6 +8,7 @@
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Team Up</title>
   <style type="text/css" media="screen">
@@ -32,7 +33,7 @@
     border-bottom-color: black;
     border-bottom-style: solid;
     border-bottom-width: thin;
-    height: 50px;
+    height: 74;
     list-style: none;
     margin: 0;
     display: -webkit-box;
@@ -47,7 +48,6 @@
   .banner a {
     text-decoration: none;
     display: block;
-    padding: 1em;
     color: black;
   }
   .banner a:hover {
@@ -59,6 +59,7 @@
   .banner p {
     left: 20px;
     position: absolute;
+    font-size: 30px;
   }
   /*.banner-content {
     font-weight: bold;
@@ -89,6 +90,9 @@
   .input-numteams {
     text-align: center;
   }
+  .info {
+    font-size: 14px;
+  }
   .run-teams {
     align-self: center;
   }
@@ -109,7 +113,8 @@
     border-width: thin;
     border-style: solid;
     padding: 10px;
-    margin: 10px;
+    margin-left: 10px;
+    margin-bottom: 15px;
     display: flex;
     -webkit-flex-flow: row;
   }
@@ -133,6 +138,13 @@
     background-color: pink;
     flex: 2;
   }
+  .team-title {
+    left: 15px;
+    position: relative;
+    padding-top: 15px;
+    font-size: 20px;
+    padding-top: 10px;
+  }
   .teammate {
     height: 40px;
     text-align: center;
@@ -142,7 +154,15 @@
     padding: 5px;
   }
   .teammate:hover {
-    background-color: pink;
+    background-color: lavender;
+  }
+  .fa-mars {
+    color: skyblue;
+    font-weight: bold;
+  }
+  .fa-venus {
+    color: pink;
+    font-weight: bold;
   }
   .figure {
     flex: 1;
@@ -240,7 +260,7 @@
     left: 0;
   }*/
 
-   svg {
+   svg.team-graph {
        width: 550px;
        height: 300px;
        position: center;
@@ -343,45 +363,53 @@
             </optgroup>
             <optgroup label="Emotional Range">
               <option value="facet_anger">Fiery</option>
-              <option value="facet_anxiety">Prone to worry</option>
+              <option style="color:red;" value="facet_anxiety">Prone to worry</option>
               <option value="facet_depression">Melancholy</option>
               <option value="facet_immoderation">Immoderation</option>
-              <option value="facet_self_consciousness">Self-consciousness</option>
+              <option style="color:red;" value="facet_self_consciousness">Self-consciousness</option>
               <option value="facet_vulnerability">Susceptible to stress</option>
             </optgroup>
             <optgroup label="Openness">
               <option value="facet_adventurousness">Adventurousness</option>
               <option value="facet_artistic_interests">Artistic interests</option>
-              <option value="facet_emotionality">Emotionality</option>
-              <option value="facet_imagination">Imagination</option>
+              <option style="color:red;" value="facet_emotionality">Emotionality</option>
+              <option style="color:red;" value="facet_imagination">Imagination</option>
               <option value="facet_intellect">Intellect</option>
               <option value="facet_liberalism">Authority-challenging</option>
             </optgroup>
             <optgroup label="Extraversion">
               <option value="facet_activity_level">Activity level</option>
-              <option value="facet_assertiveness">Assertiveness</option>
-              <option value="facet_cheerfulness">Cheerfulness</option>
-              <option value="facet_excitement_seeking">Excitement-seeking</option>
+              <option style="color:red;" value="facet_assertiveness">Assertiveness</option>
+              <option style="color:red;" value="facet_cheerfulness">Cheerfulness</option>
+              <option style="color:red;" value="facet_excitement_seeking">Excitement-seeking</option>
               <option value="facet_friendliness">Outgoing</option>
               <option value="facet_gregariousness">Gregariousness</option>
             </optgroup>
             <optgroup label="Agreeableness">
-              <option value="facet_altruism">Altruism</option>
-              <option value="facet_cooperation">Cooperation</option>
+              <option style="color:red;" value="facet_altruism">Altruism</option>
+              <option style="color:red;" value="facet_cooperation">Cooperation</option>
               <option value="facet_modesty">Modesty</option>
               <option value="facet_morality">Uncompromising</option>
               <option value="facet_sympathy">Sympathy</option>
               <option value="facet_trust">Trust</option>
             </optgroup>
             <optgroup label="Conscientiousness">
-              <option value="facet_achievement_striving">Achievement striving</option>
+              <option style="color:red;" value="facet_achievement_striving">Achievement striving</option>
               <option value="facet_cautiousness">Cautiousness</option>
               <option value="facet_dutifulness">Dutifulness</option>
               <option value="facet_orderliness">Orderliness</option>
-              <option value="facet_self_discipline">Self-discipline</option>
+              <option style="color:red;" value="facet_self_discipline">Self-discipline</option>
               <option value="facet_self_efficacy">Self-efficacy</option>
             </optgroup>
           </select><br><br>
+          <div class="info">
+            Research suggests that the most successful teams are typically those composed of individuals with varying traits.
+            Personality traits are broken up into five categories called the "Big Five." These are emotional range, openness, extraversion, agreeableness, and conscientiousness.
+            Teams made by balancing individuals with high scores for these traits will tend to be more successful, high-performing teams.
+            <br><br>
+            Traits in <span style="color:red;">red</span> have been shown to contribute to stronger teams.
+            <br><br>
+          </div>
           <input class="run-teams" type="submit" name="run" value="Run">
           <input class="run-teams" type="submit" name="run" value="Random">
         </form>
@@ -397,12 +425,23 @@
       </div>
     </div>
     <div class="results">
+      <span class="team-title">Teams Summary</span>
+      <div id="summary" class="team">
+        <div class="figure"></div>
+      </div>
       {% for team in teams %}
       {% set outer_loop = loop %}
+      <span class="team-title">Team {{loop.index}}</span>
       <div id = "team{{loop.index0}}" class="team">
         <div class="teammates">
           {% for teammate in team %}
-            <div class="teammate" id="{{outer_loop.index0}}-{{loop.index0}}"=>{{teammate['name']}}</div>
+            <div class="teammate" id="{{outer_loop.index0}}-{{loop.index0}}">{{teammate['name']}}
+              {% if teammate['gender'] == 'm' %}
+              <i class="fa fa-mars"></i>
+              {% else %}
+              <i class="fa fa-venus"></i>
+              {% endif %}
+            </div>
           {% endfor %}
         </div>
         <div class="figure">
@@ -625,189 +664,15 @@
     };
     var teams = {{teams|tojson}}
     var features = {{features|safe}}
+    var sum_data = [];
+    for (var i = 0; i < features.length; i++) {
+      sum_data.push({feat: traits_json[features[i]].label, values: []});
+    }
     teams.forEach(function(team, team_idx) {
-    //   var width = 300,
-    //       height = 300,
-    //       radius = Math.min(width, height) / 2,
-    //       innerRadius = 0 * radius;
-    //
-    //   var pie = d3.layout.pie()
-    //       .sort(null)
-    //       .value(function(d) { return 1; });
-    //
-    //   var tip = d3.tip()
-    //     .attr('class', 'd3-tip')
-    //     .offset([0, 0])
-    //     .html(function(d) {
-    //       return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
-    //     });
-    //
-    //   var arcBackground = d3.svg.arc()
-    //     .innerRadius(innerRadius)
-    //     .outerRadius(function (d) {
-    //       return (radius - innerRadius) * (100 / 100.0) + innerRadius;
-    //
-    //     });
-    //
-    //   var arc = d3.svg.arc()
-    //     .innerRadius(innerRadius)
-    //     .outerRadius(function (d) {
-    //       return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius;
-    //
-    //     });
-    //
-    //   var outlineArc = d3.svg.arc()
-    //           .innerRadius(innerRadius)
-    //           .outerRadius(radius)
-    //
-    //   var svg = d3.selectAll("div.team#team"+team_idx).selectAll(".figure").insert("svg",":first-child")
-    //       .attr("width", width)
-    //       .attr("height", height)
-    //       .style("padding", "20px")
-    //       .append("g")
-    //       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-    //
-    //   svg.call(tip);
-    //
-    //   var data = [];
-    //
-    //   for (var feat_idx = 0; feat_idx < features.length; feat_idx++) {
-    //     var d = {}
-    //     var feat = features[feat_idx];
-    //     d.label = traits_json[feat].label;
-    //     d.color = traits_json[feat].color;
-    //     d.feat = feat;
-    //     d.weight = 1;
-    //     d.score = 0;
-    //     for (var p_idx = 0; p_idx < team.length; p_idx++) {
-    //       var p = team[p_idx];
-    //       // set value of arc to max value in team
-    //       if (p[feat] > d.score)
-    //         d.score = p[feat];
-    //     }
-    //
-    //     d.score = Math.round(d.score * 100);
-    //     data.push(d);
-    //   }
-    //
-    //   var p_data = [];
-    //   for (var p_idx = 0; p_idx < team.length; p_idx++) {
-    //     var temp_data = [];
-    //     for (var feat_idx = 0; feat_idx < features.length; feat_idx++) {
-    //       var d = {}
-    //       var feat = features[feat_idx];
-    //       d.label = traits_json[feat].label;
-    //       d.color = traits_json[feat].color;
-    //       d.feat = feat;
-    //       d.weight = 1;
-    //       d.score = team[p_idx][feat];
-    //       d.score = Math.round(d.score * 100);
-    //       temp_data.push(d);
-    //     }
-    //     p_data.push(temp_data);
-    //   }
-    //
-    //   var path = svg.selectAll(".solidArc")
-    //       .data(pie(data))
-    //     .enter().append("path")
-    //       .attr("fill", function(d) {return d.data.color; })
-    //       .attr("class", "solidArc")
-    //       .attr("stroke", "gray")
-    //       .attr("d", arc)
-    //
-    //   for (var p_idx = 0; p_idx < p_data.length; p_idx++) {
-    //     var path = svg.selectAll(".outlineArc"+p_idx)
-    //         .data(pie(p_data[p_idx]))
-    //       .enter().append("path")
-    //         .attr("fill", 'transparent')
-    //         .attr("class", "outlineArc"+p_idx)
-    //         .attr("id", team_idx+"-"+p_idx)
-    //         .attr("stroke", "transparent")
-    //         .attr("stroke-width", 2)
-    //         .attr("d", arc)
-    //
-    //     $("#"+team_idx+"-"+p_idx).mouseover(function(e){
-    //       var split = this.id.split("-");
-    //       var team_idx = split[0];
-    //       var p_idx = split[1];
-    //       $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'white', 'fill':"rgba(0,0,0,0.5)"})
-    //     });
-    //     $("#"+team_idx+"-"+p_idx).mouseout(function(e){
-    //       var split = this.id.split("-");
-    //       var team_idx = split[0];
-    //       var p_idx = split[1];
-    //       $("#"+team_idx+"-"+p_idx+".outlinearc"+p_idx).attr({'stroke':'transparent', 'fill':'transparent'})
-    //     });
-    //   }
-    //
-    //   var outerPath = svg.selectAll(".outlineArc")
-    //       .data(pie(data))
-    //     .enter().append("path")
-    //       .attr("fill", "none")
-    //       .attr("stroke", "gray")
-    //       .attr("class", "outlineArc")
-    //       .attr("d", outlineArc)
-    //
-    //   var pathBackground = svg.selectAll(".arcBackground")
-    //       .data(pie(data))
-    //     .enter().append("path")
-    //       .attr("fill", 'transparent')
-    //       .attr("d", arcBackground)
-    //       .attr("id", function(d) { return "arcBackground-"+d.data.feat; })
-    //       .on('mouseover', tip.show)
-    //       .on('mouseout', tip.hide);
-    //
-    //   var featText = svg.selectAll(".featText")
-    //       .data(pie(data))
-    //     .enter().append("text")
-    //       .attr("class", "featText")
-    //       .attr("dy", "8px")
-    //     .append("textPath") //append a textPath to the text element
-    //       .attr("xlink:href", function(d) { return "#arcBackground-"+d.data.feat; }) //place the ID of the path here
-    //       .style("text-anchor","middle") //place the text halfway on the arc
-    //       .attr("startOffset", function() { return "34%" })
-    //       .text(function(d) { return "---------" })
-    //       .style("font-size", "14px")
-    //       .style("font-weight", "bold")
-    //       .style("fill", "black")
-    //       .on('mouseover', tip.show)
-    //       .on('mouseout', tip.hide);
-    //
-    //   var scoreText = svg.selectAll(".scoreText")
-    //       .data(pie(data))
-    //     .enter().append("text")
-    //       .attr("class", "scoreText")
-    //       .attr("dy", "-3px")
-    //     .append("textPath") //append a textPath to the text element
-    //       .attr("xlink:href", function(d) { return "#arcBackground-"+d.data.feat; }) //place the ID of the path here
-    //       .style("text-anchor","middle") //place the text halfway on the arc
-    //       .attr("startOffset", "8%")
-    //       .text(function(d) { return d.data.score })
-    //       .style("font-size", "15px")
-    //       .style("font-weight", "bold")
-    //       .style("fill", "black")
-    //
-    //   // calculate the weighted mean score
-    //   // var score =
-    //   //   data.reduce(function(a, b) {
-    //   //     //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-    //   //     return a + (b.score * b.weight);
-    //   //   }, 0) /
-    //   //   data.reduce(function(a, b) {
-    //   //     return a + b.weight;
-    //   //   }, 0);
-    //
-    //   // svg.append("svg:text")
-    //   //   .attr("class", "aster-score")
-    //   //   .attr("dy", ".35em")
-    //   //   .attr("text-anchor", "middle") // text-align: right
-    //   //   .text(Math.round(score));
-    //   }
-
       var data = [];
 
       for (var feat_idx = 0; feat_idx < features.length; feat_idx++) {
-        var d = {}
+        var d = {};
         var feat = features[feat_idx];
         d.label = traits_json[feat].label;
         d.color = traits_json[feat].color;
@@ -823,6 +688,7 @@
 
         d.value = Math.round(d.value * 100);
         data.push(d);
+        sum_data[feat_idx].values.push({'team_idx': team_idx, 'value': d.value});
       }
 
       var p_data = [];
@@ -857,6 +723,7 @@
 
       svg = d3.selectAll("div.team#team"+team_idx).selectAll(".figure")
        .append("svg")
+       .attr("class","team-graph")
        .attr("width", width)
        .attr("height", height);
 
@@ -917,7 +784,6 @@
 
       for (var p_idx = 0; p_idx < p_data.length; p_idx++) {
         var p = p_data[p_idx];
-        console.log(p_idx);
         for (var i = 0; i < p.length; i++) {
           var feat = p[i].feat;
           var value = p[i].value;
@@ -991,7 +857,129 @@
         .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
         .call(xAxis);
       });
+
+
+      // Team Summary
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+    var x0 = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
+
+    var x1 = d3.scale.ordinal();
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x0)
+        .tickSize(0)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var color = d3.scale.category20();
+
+    var svg = d3.select('div#summary').selectAll(".figure").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var teamNumbers = Object.keys(teams);
+    var featureNames = sum_data.map(function(d) { return d.feat });
+
+    x0.domain(featureNames);
+    x1.domain(teamNumbers).rangeRoundBands([0, x0.rangeBand()]);
+    y.domain([0, 100]);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+
+    svg.selectAll(".tick").selectAll("text")
+    .style({"fill":function(d) {
+      for (var i = 0; i < Object.keys(traits_json).length; i++)
+        {
+          var k = Object.keys(traits_json)[i];
+          if(d == traits_json[k].label) {
+            return traits_json[k].color;
+          }
+        }
+      },
+      "font-size": "14px",
+      "font-weight": "bold"});
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .style('opacity','0')
+        .call(yAxis)
+    .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .style('font-weight','bold')
+        .text("Score");
+
+    svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
+
+    var slice = svg.selectAll(".slice")
+        .data(sum_data)
+        .enter().append("g")
+        .attr("class", "g")
+        .attr("transform",function(d) { return "translate(" + x0(d.feat) + ",0)"; });
+
+    slice.selectAll("rect")
+        .data(function(d) { return d.values; })
+    .enter().append("rect")
+        .attr("width", x1.rangeBand())
+        .attr("x", function(d) { return x1(d.team_idx); })
+        .style("fill", function(d) { return color(d.team_idx) })
+        .attr("y", function(d) { return y(0); })
+        .attr("height", function(d) { return height - y(0); })
+        .on("mouseover", function(d) {
+            d3.select(this).style("fill", d3.rgb(color(d.team_idx)).darker(2));
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("fill", color(d.team_idx));
+        });
+
+    slice.selectAll("rect")
+        .transition()
+        .delay(function (d) {return Math.random()*1000;})
+        .duration(1000)
+        .attr("y", function(d) { return y(d.value); })
+        .attr("height", function(d) { return height - y(d.value); });
+
+    //Legend
+    var legend = svg.selectAll(".legend")
+        .data(sum_data[0].values.map(function(d) { console.log(d); return d; }).reverse())
+    .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
+        .style("opacity","0");
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d) { return color(d.team_idx); });
+
+    legend.append("text")
+        .attr("x", width + 12)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { console.log(d); return d.team_idx + 1; });
+
+    legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
     </script>
+
     <script>
     $(document).ready(function() {
       $('.chosen-container').css("width", "400px");
