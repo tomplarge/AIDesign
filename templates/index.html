@@ -378,10 +378,10 @@
               <option value="facet_liberalism">Authority-challenging</option>
             </optgroup>
             <optgroup label="Extraversion">
-              <option value="facet_activity_level">Activity level</option>
+              <option style="color:red;" value="facet_activity_level">Activity level</option>
               <option style="color:red;" value="facet_assertiveness">Assertiveness</option>
-              <option style="color:red;" value="facet_cheerfulness">Cheerfulness</option>
-              <option style="color:red;" value="facet_excitement_seeking">Excitement-seeking</option>
+              <option value="facet_cheerfulness">Cheerfulness</option>
+              <option value="facet_excitement_seeking">Excitement-seeking</option>
               <option value="facet_friendliness">Outgoing</option>
               <option value="facet_gregariousness">Gregariousness</option>
             </optgroup>
@@ -913,7 +913,7 @@
           }
         }
       },
-      "font-size": "14px",
+      "font-size": "10px",
       "font-weight": "bold"});
 
     svg.append("g")
@@ -967,7 +967,7 @@
         .style("opacity","0");
 
     legend.append("rect")
-        .attr("x", width - 18)
+        .attr("x", width)
         .attr("width", 18)
         .attr("height", 18)
         .style("fill", function(d) { return color(d.team_idx); });
