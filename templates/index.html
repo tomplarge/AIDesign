@@ -425,12 +425,14 @@
       </div>
     </div>
     <div class="results">
+      {% for team in teams %}
+      {% set outer_loop = loop %}
+      {% if loop.index0 == 0 %}
       <span class="team-title">Teams Summary</span>
       <div id="summary" class="team">
         <div class="figure"></div>
       </div>
-      {% for team in teams %}
-      {% set outer_loop = loop %}
+      {% endif %}
       <span class="team-title">Team {{loop.index}}</span>
       <div id = "team{{loop.index0}}" class="team">
         <div class="teammates">
