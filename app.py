@@ -51,12 +51,14 @@ def index(features = None, teams = None):
         input_feats[i] = str(input_feats[i])
     if input_feats and algo_type:
         if algo_type == 'Random':
-            teams = build_random_teams(num_teams, people, input_feats)
+            teams, variances = build_random_teams(num_teams, people, input_feats)
         elif algo_type == 'Run':
-            teams = build_teams(num_teams, people, input_feats)
+            teams, variances = build_teams(num_teams, people, input_feats)
+        print variances
     else:
         teams = []
-    return render_template('index.html', teams = teams, features = input_feats)
+        variances = []
+    return render_template('index.html', teams = teams, features = input_feats, variances = variances)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

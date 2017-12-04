@@ -30,7 +30,7 @@ def build_teams(num_teams, people, features):
         round_robin(teams, male, num_teams, team_choices, features, False)
         round_robin(teams, female, num_teams, team_choices[::-1], features, True)
 
-    return teams
+    return teams, [round(calc_var(team, features), 2) for team in teams]
 
 # Assign individuals based on round robin
 def round_robin(teams, people, num_teams, team_choices, features, reversed):

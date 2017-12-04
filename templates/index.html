@@ -171,6 +171,10 @@
   }
   .figure {
     flex: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color:
   }
   .key-container{
     margin: 5px;
@@ -265,51 +269,68 @@
     left: 0;
   }*/
 
-   svg.team-graph {
-       width: 550px;
-       height: 300px;
-       position: center;
-   }
+  svg.team-graph {
+     width: 550px;
+     height: 300px;
+     position: center;
+  }
 
-   .toolTip {
-       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-       position: absolute;
-       display: none;
-       width: auto;
-       height: auto;
-       background: none repeat scroll 0 0 white;
-       border: 0 none;
-       border-radius: 8px 8px 8px 8px;
-       box-shadow: -3px 3px 15px #888888;
-       color: black;
-       font: 12px sans-serif;
-       padding: 5px;
-       text-align: center;
-   }
+  .toolTip {
+     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+     position: absolute;
+     display: none;
+     width: auto;
+     height: auto;
+     background: none repeat scroll 0 0 white;
+     border: 0 none;
+     border-radius: 8px 8px 8px 8px;
+     box-shadow: -3px 3px 15px #888888;
+     color: black;
+     font: 12px sans-serif;
+     padding: 5px;
+     text-align: center;
+  }
 
-   text {
-    font: 10px sans-serif;
-    color: white;
-   }
+  text {
+  font: 10px sans-serif;
+  color: white;
+  }
 
-   text.value {
-    font-weight: bold;
-    fill: black;
-   }
+  text.value {
+  font-weight: bold;
+  fill: black;
+  }
 
-   .axisHorizontal path{
-       fill: none;
-   }
+  .axisHorizontal path{
+     fill: none;
+  }
 
-   .axisHorizontal .tick line {
-       stroke-width: 1;
-       stroke: rgba(0, 0, 0, 0.2);
-   }
+  .axisHorizontal .tick line {
+     stroke-width: 1;
+     stroke: rgba(0, 0, 0, 0.2);
+  }
 
-   .bar {
-       fill: steelblue;
-       /*fill-opacity: .9;*/
-   }
+  .bar {
+     fill: steelblue;
+     /*fill-opacity: .9;*/
+  }
+  .line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+  }
+
+  /* Style the dots by assigning a fill and stroke */
+  .dot {
+      fill: #ffab00;
+      stroke: #fff;
+  }
+  .variances {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
   </style>
 </head>
 
@@ -439,7 +460,7 @@
         <div class="figure"></div>
       </div>
       {% endif %}
-      <span class="team-title">Team {{loop.index}}</span>
+      <span class="team-title" id="team{{loop.index0}}">Team {{loop.index}}</span>
       <div id = "team{{loop.index0}}" class="team">
         <div class="teammates">
           {% for teammate in team %}
@@ -453,6 +474,7 @@
           {% endfor %}
         </div>
         <div class="figure">
+          Variance Score   {{variances[loop.index0]}}
         </div>
       </div>
       {% endfor %}
@@ -890,6 +912,14 @@
         .orient("left");
 
     var color = d3.scale.category20();
+    for (var team_idx = 0; team_idx < teams.length; team_idx++) {
+      var div = d3.select('div#team'+team_idx);
+      var fig = div.selectAll(".figure");
+      var span = d3.select('span#team'+team_idx);
+      div.style("border-color", color(team_idx));
+      fig.style("color", color(team_idx));
+      span.style("color", color(team_idx));
+    }
 
     var svg = d3.select('div#summary').selectAll(".figure").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -986,6 +1016,84 @@
         .text(function(d) { console.log(d); return d.team_idx + 1; });
 
     legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
+
+
+
+
+    // Set the dimensions of the canvas / graph
+    var margin = {top: 30, right: 20, bottom: 30, left: 50},
+        width = 600 - margin.left - margin.right,
+        height = 100 - margin.top - margin.bottom;
+
+    // // Parse the date / time
+    // var parseDate = d3.time.format("%d-%b-%y").parse;
+
+    // Set the ranges
+    var x = d3.scale.linear().range([0, 500]);
+    var y = d3.scale.linear().range([height, 0]);
+
+    // Define the axes
+    var xAxis = d3.svg.axis().scale(x)
+        .orient("bottom").ticks(5);
+
+    var yAxis = d3.svg.axis().scale(y)
+        .orient("left").ticks(5);
+
+    // Define the line
+    var valueline = d3.svg.line()
+        .x(function(d) { return x(d); })
+        .y(function(d) { return y(0); });
+
+    // Adds the svg canvas
+    var svg = d3.select('div#summary').selectAll(".figure")
+        .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+    var variances = {{variances}}
+
+    // Scale the range of the data
+    x.domain([0,1]);
+    y.domain([0, 0]);
+
+    svg.selectAll("dot")
+            .data(variances)
+          .enter().append("circle")
+            .attr("r", 7)
+            .attr("cx", function(d) { return x(d); })
+            .attr("cy", -10)
+            .attr("fill", function(d, i) {return color(i);});
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis variances")
+        .attr("transform", "translate(0," + 0 + ")")
+        .call(xAxis);
+
+    svg.select("g.x")
+      .selectAll(".tick")
+      .selectAll("text")
+      .style("font-size",15)
+      .style("font-weight", "bold")
+      .style("fill", "black");
+
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate(0," + 0 + ")")
+        .attr("dx", 250)
+        .attr("dy", 50)
+        .style("font-size", 20)
+        .style("font-weight", "bold")
+        .text("Team Variances");
+
+    // // Add the Y Axis
+    // svg.append("g")
+    //     .attr("class", "y axis variances")
+    //     .call(yAxis);
+
     </script>
 
     <script>

@@ -21,8 +21,8 @@ def build_random_teams(num_teams, people, features):
         i += 1
         if i == len(teams):
             i = 0
-            
-    return teams
+
+    return teams, [round(calc_var(team, features), 2) for team in teams]
 
 # Assign individuals based on round robin
 def round_robin(teams, people, team_choices, features, reversed):
